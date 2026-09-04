@@ -147,8 +147,8 @@ code, pre { font-family: var(--font-mono); }
 
 .venue-badge { display: flex; align-items: center; gap: 11px; width: fit-content; max-width: 100%; margin: 0 0 24px; color: #fff; line-height: 1.2; }
 .venue-badge::before { width: 32px; height: 2px; flex: 0 0 auto; border-radius: 2px; background: linear-gradient(90deg, var(--gold), #f3cb7e); content: ""; }
-.venue-badge span { color: #d9b56e; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; }
-.venue-badge strong { font-family: var(--font-display); font-size: clamp(0.98rem, 1.3vw, 1.12rem); font-weight: 800; letter-spacing: -0.018em; white-space: nowrap; }
+.venue-badge span { color: #d9b56e; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.venue-badge strong { font-family: var(--font-display); font-size: clamp(1.16rem, 1.55vw, 1.35rem); font-weight: 800; letter-spacing: -0.018em; white-space: nowrap; }
 
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { text-wrap: balance; }
@@ -418,8 +418,8 @@ tbody .best-row th { background: #eeeeff; }
   .hero { padding-top: 53px; }
   .venue-badge { gap: 8px; margin-bottom: 20px; }
   .venue-badge::before { width: 22px; }
-  .venue-badge span { font-size: 0.55rem; }
-  .venue-badge strong { font-size: 0.9rem; }
+  .venue-badge span { font-size: 0.66rem; }
+  .venue-badge strong { font-size: 1.02rem; }
   h1 { font-size: clamp(2.52rem, 12.7vw, 3.5rem); }
   .hero-actions { align-items: stretch; }
   .button { flex: 1 1 100%; }
