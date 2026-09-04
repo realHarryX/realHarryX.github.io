@@ -145,14 +145,10 @@ code, pre { font-family: var(--font-mono); }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 13px; color: var(--iris-dark); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.1em; line-height: 1.3; text-transform: uppercase; }
 .eyebrow span { display: inline-block; width: 22px; height: 2px; background: currentColor; }
 
-.venue-badge { position: relative; display: inline-flex; align-items: stretch; max-width: 100%; margin-bottom: 22px; overflow: hidden; border: 1px solid rgb(255 226 164 / 0.38); border-radius: 12px; background: linear-gradient(110deg, rgb(255 255 255 / 0.12), rgb(109 113 248 / 0.14)); box-shadow: 0 10px 30px rgb(0 0 0 / 0.2), 0 0 30px rgb(231 173 66 / 0.1); backdrop-filter: blur(10px); }
-.venue-badge::after { position: absolute; top: 0; right: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--gold), #ffe2a4 45%, var(--mint)); content: ""; }
-.venue-monogram { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 67px; padding: 10px 13px 9px; background: linear-gradient(145deg, #f2bd58, var(--gold)); color: #17172b; font-family: var(--font-display); font-size: 0.83rem; font-weight: 900; letter-spacing: 0.02em; line-height: 1; }
-.venue-monogram b { margin-top: 3px; font-size: 1.22rem; letter-spacing: -0.06em; }
-.venue-copy { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: 9px 16px 10px; }
-.venue-copy small { color: #aeb9d5; font-family: var(--font-mono); font-size: 0.58rem; font-weight: 750; letter-spacing: 0.13em; line-height: 1.35; text-transform: uppercase; }
-.venue-copy strong { color: #fff; font-family: var(--font-display); font-size: clamp(0.95rem, 1.35vw, 1.12rem); font-weight: 850; letter-spacing: -0.025em; line-height: 1.35; white-space: nowrap; }
-.venue-track { align-self: center; margin-right: 12px; padding: 5px 8px; border: 1px solid rgb(70 200 155 / 0.42); border-radius: 999px; background: rgb(70 200 155 / 0.1); color: #8be2c4; font-family: var(--font-mono); font-size: 0.57rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.venue-badge { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; margin: 0 0 22px; padding: 9px 16px 9px 12px; border: 1px solid rgb(231 173 66 / 0.34); border-radius: 999px; background: linear-gradient(105deg, rgb(231 173 66 / 0.12), rgb(255 255 255 / 0.055)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.09), 0 8px 24px rgb(0 0 0 / 0.16); line-height: 1.2; backdrop-filter: blur(10px); }
+.venue-badge::before { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgb(231 173 66 / 0.12), 0 0 14px rgb(231 173 66 / 0.55); content: ""; }
+.venue-badge span { padding-right: 10px; border-right: 1px solid rgb(255 255 255 / 0.17); color: #c3cce2; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 750; letter-spacing: 0.09em; text-transform: uppercase; }
+.venue-badge strong { color: #fff; font-family: var(--font-display); font-size: clamp(0.91rem, 1.2vw, 1.03rem); font-weight: 850; letter-spacing: -0.02em; white-space: nowrap; }
 
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { text-wrap: balance; }
@@ -420,11 +416,9 @@ tbody .best-row th { background: #eeeeff; }
 @media (max-width: 580px) {
   :root { --shell: min(100% - 28px, 1216px); }
   .hero { padding-top: 53px; }
-  .venue-badge { margin-bottom: 19px; }
-  .venue-monogram { min-width: 59px; padding-inline: 10px; }
-  .venue-copy { padding-inline: 12px; }
-  .venue-copy strong { font-size: 0.9rem; white-space: normal; }
-  .venue-track { display: none; }
+  .venue-badge { gap: 8px; margin-bottom: 19px; padding: 8px 12px 8px 10px; }
+  .venue-badge span { padding-right: 8px; font-size: 0.55rem; }
+  .venue-badge strong { font-size: 0.86rem; }
   h1 { font-size: clamp(2.52rem, 12.7vw, 3.5rem); }
   .hero-actions { align-items: stretch; }
   .button { flex: 1 1 100%; }
