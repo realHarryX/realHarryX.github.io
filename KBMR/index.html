@@ -7,8 +7,8 @@
   <title>KBMR | Entity-Aligned Retrieval for Knowledge-Based VQA</title>
   <meta name="description" content="KBMR is an MLLM-based image retriever that aligns knowledge-based visual question answering with entity identity rather than surface appearance.">
   <link rel="canonical" href="https://realharryx.github.io/KBMR/">
-  <link rel="icon" href="/KBMR/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/KBMR/assets/site.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
   <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 
   <meta property="og:type" content="website">
@@ -117,7 +117,14 @@
       <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
       <div class="shell hero-grid">
         <div class="hero-copy reveal">
-          <p class="eyebrow eyebrow-light"><span></span> ACM Multimedia 2026 · KB-VQA</p>
+          <div class="venue-badge" aria-label="Accepted at ACM Multimedia 2026">
+            <span class="venue-monogram" aria-hidden="true">MM<b>’26</b></span>
+            <span class="venue-copy">
+              <small>Accepted at</small>
+              <strong>ACM Multimedia 2026</strong>
+            </span>
+            <span class="venue-track">KB-VQA</span>
+          </div>
           <h1 id="hero-title">
             <span>Beyond Visual Similarity.</span>
             Entity-Aligned Retrieval for Knowledge-Based VQA
@@ -160,7 +167,7 @@
               <p>appearance ≠ identity</p>
             </div>
             <div class="hero-image-wrap">
-              <img src="/KBMR/assets/motivation.png" width="900" height="850" fetchpriority="high" alt="Comparison of EVA-CLIP and KBMR retrieval for a hotel image: visual similarity leads to a wrong entity, while entity-aware retrieval finds Strategic Hotels and Resorts.">
+              <img src="assets/motivation.png" width="900" height="850" fetchpriority="high" alt="Comparison of EVA-CLIP and KBMR retrieval for a hotel image: visual similarity leads to a wrong entity, while entity-aware retrieval finds Strategic Hotels and Resorts.">
             </div>
           </div>
           <figcaption>
@@ -255,7 +262,7 @@
               <p>KBMR · training pipeline</p>
             </div>
             <section class="method-image-wrap" aria-label="KBMR method diagram">
-              <img src="/KBMR/assets/method.png" width="1740" height="800" loading="lazy" decoding="async" alt="KBMR pipeline showing a trainable MLLM retriever and continuous semantic distillation on the left, and EVA-CLIP candidate mining, semantic discrimination, filtering, and hard-negative sampling on the right.">
+              <img src="assets/method.png" width="1740" height="800" loading="lazy" decoding="async" alt="KBMR pipeline showing a trainable MLLM retriever and continuous semantic distillation on the left, and EVA-CLIP candidate mining, semantic discrimination, filtering, and hard-negative sampling on the right.">
             </section>
           </div>
           <figcaption>
@@ -368,7 +375,7 @@
           </div>
           <figure class="rank-figure">
             <a href="https://arxiv.org/pdf/2608.21450" aria-label="Open the KBMR paper containing the full qualitative analysis">
-              <img src="/KBMR/assets/figure-corvus.png" width="900" height="730" loading="lazy" decoding="async" alt="Qualitative retrieval comparison for a Corvus albicollis query. EVA-CLIP ranks the correct entity fifth, while KBMR retrieves it at rank one.">
+              <img src="assets/figure-corvus.png" width="900" height="730" loading="lazy" decoding="async" alt="Qualitative retrieval comparison for a Corvus albicollis query. EVA-CLIP ranks the correct entity fifth, while KBMR retrieves it at rank one.">
             </a>
             <figcaption>
               <span>Figure 4</span>
@@ -522,6 +529,6 @@
   </footer>
 
   <nav class="back-to-top-nav" aria-label="Page actions"><a class="back-to-top" href="#top" aria-label="Back to top" data-back-to-top><span aria-hidden="true">↑</span></a></nav>
-  <script src="/KBMR/assets/site.js" defer></script>
+  <script src="assets/site.js" defer></script>
 </body>
 </html>
