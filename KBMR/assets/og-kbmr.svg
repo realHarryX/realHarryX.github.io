@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">KBMR — Beyond Visual Similarity</title>
+  <desc id="desc">Social card for KBMR, an entity-aligned retriever for knowledge-based visual question answering.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#090d1f"/>
+      <stop offset=".58" stop-color="#151c40"/>
+      <stop offset="1" stop-color="#241c45"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#8789ff"/>
+      <stop offset=".52" stop-color="#f0b84b"/>
+      <stop offset="1" stop-color="#4bcfa5"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="11"/></filter>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#c1cbff" opacity=".22"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity=".35"/>
+  <circle cx="1023" cy="163" r="255" fill="#7477ff" opacity=".16" filter="url(#glow)"/>
+  <circle cx="774" cy="584" r="190" fill="#4bcfa5" opacity=".1" filter="url(#glow)"/>
+  <g transform="translate(70 73)">
+    <rect x="0" y="0" width="52" height="52" rx="14" fill="#0a1026" stroke="#7377ff" stroke-width="1.5"/>
+    <rect x="10" y="14" width="20" height="20" rx="5" fill="none" stroke="#8588ff" stroke-width="2.5"/>
+    <rect x="23" y="21" width="20" height="20" rx="5" fill="none" stroke="#4bcfa5" stroke-width="2.5"/>
+    <path d="M15 24h23" stroke="#f0b84b" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="27" cy="24" r="4" fill="#0a1026" stroke="#f0b84b" stroke-width="2.3"/>
+    <text x="68" y="34" fill="#f6f7ff" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="-1">KBMR</text>
+  </g>
+  <g transform="translate(70 195)">
+    <text fill="#bfc5ff" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3">ACM MULTIMEDIA 2026 · KB-VQA</text>
+    <text y="91" fill="#fff" font-family="Arial, sans-serif" font-size="69" font-weight="800" letter-spacing="-3.4">Beyond Visual Similarity.</text>
+    <text y="160" fill="#fff" font-family="Arial, sans-serif" font-size="56" font-weight="750" letter-spacing="-2.7">Retrieve by entity identity.</text>
+    <text y="217" fill="#c8d0e6" font-family="Arial, sans-serif" font-size="27" letter-spacing="-.3">An MLLM retriever for knowledge-based visual question answering.</text>
+  </g>
+  <g transform="translate(854 185)">
+    <circle cx="154" cy="147" r="156" fill="none" stroke="#a5a8ff" stroke-opacity=".23"/>
+    <circle cx="154" cy="147" r="96" fill="none" stroke="#4bcfa5" stroke-opacity=".28"/>
+    <rect x="24" y="76" width="172" height="172" rx="28" fill="#111a39" stroke="#8588ff" stroke-width="6" transform="rotate(-7 110 162)"/>
+    <rect x="115" y="127" width="172" height="172" rx="28" fill="#101d37" stroke="#4bcfa5" stroke-width="6" transform="rotate(7 201 213)"/>
+    <path d="M70 162h174" fill="none" stroke="url(#signal)" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="157" cy="162" r="29" fill="#10152d" stroke="#f0b84b" stroke-width="8"/>
+    <circle cx="157" cy="162" r="8" fill="#f0b84b"/>
+  </g>
+  <text x="70" y="569" fill="#98a5c9" font-family="Arial, sans-serif" font-size="20">arXiv:2608.21450  ·  github.com/realHarryX/KBMR</text>
+</svg>

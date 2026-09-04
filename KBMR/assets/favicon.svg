@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">KBMR entity alignment mark</title>
+  <desc id="desc">Two overlapping image frames connected through a central entity node.</desc>
+  <defs>
+    <linearGradient id="iris" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8588ff"/>
+      <stop offset="1" stop-color="#4bcfa5"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#090d1f"/>
+  <rect x="9" y="14" width="27" height="28" rx="7" fill="none" stroke="#8588ff" stroke-width="3"/>
+  <rect x="28" y="23" width="27" height="28" rx="7" fill="none" stroke="#4bcfa5" stroke-width="3"/>
+  <path d="M18 28h28" fill="none" stroke="url(#iris)" stroke-linecap="round" stroke-width="3"/>
+  <circle cx="32" cy="28" r="6" fill="#090d1f" stroke="#f0b84b" stroke-width="3"/>
+  <circle cx="32" cy="28" r="1.7" fill="#f0b84b"/>
+</svg>

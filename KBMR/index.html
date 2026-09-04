@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d1f">
+  <title>KBMR | Entity-Aligned Retrieval for Knowledge-Based VQA</title>
+  <meta name="description" content="KBMR is an MLLM-based image retriever that aligns knowledge-based visual question answering with entity identity rather than surface appearance.">
+  <link rel="canonical" href="https://realharryx.github.io/KBMR/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KBMR · Beyond Visual Similarity">
+  <meta property="og:description" content="Entity-aligned retrieval for knowledge-based visual question answering.">
+  <meta property="og:url" content="https://realharryx.github.io/KBMR/">
+  <meta property="og:image" content="https://realharryx.github.io/KBMR/assets/og-kbmr.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="KBMR title with an entity-alignment motif connecting a visual query to grounded knowledge.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KBMR · Beyond Visual Similarity">
+  <meta name="twitter:description" content="Entity-aligned retrieval for knowledge-based visual question answering.">
+  <meta name="twitter:image" content="https://realharryx.github.io/KBMR/assets/og-kbmr.png">
+
+  <meta name="citation_title" content="Beyond Visual Similarity: Entity-Aligned Retrieval for Knowledge-Based Visual Question Answering">
+  <meta name="citation_author" content="Hangrui Xu">
+  <meta name="citation_author" content="Zhengxian Wu">
+  <meta name="citation_author" content="Yunyao Yu">
+  <meta name="citation_author" content="Zhuohong Chen">
+  <meta name="citation_author" content="Rui Cong">
+  <meta name="citation_author" content="Xiangwen Deng">
+  <meta name="citation_author" content="Zhifang Liu">
+  <meta name="citation_author" content="Peng Jiao">
+  <meta name="citation_author" content="Haoqian Wang">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Proceedings of the 34th ACM International Conference on Multimedia">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.21450">
+  <meta name="citation_doi" content="10.1145/3767308.3836227">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Beyond Visual Similarity: Entity-Aligned Retrieval for Knowledge-Based Visual Question Answering",
+    "name": "Beyond Visual Similarity: Entity-Aligned Retrieval for Knowledge-Based Visual Question Answering",
+    "datePublished": "2026",
+    "identifier": [
+      "arXiv:2608.21450",
+      "https://doi.org/10.1145/3767308.3836227"
+    ],
+    "author": [
+      {"@type": "Person", "name": "Hangrui Xu"},
+      {"@type": "Person", "name": "Zhengxian Wu"},
+      {"@type": "Person", "name": "Yunyao Yu"},
+      {"@type": "Person", "name": "Zhuohong Chen"},
+      {"@type": "Person", "name": "Rui Cong"},
+      {"@type": "Person", "name": "Xiangwen Deng"},
+      {"@type": "Person", "name": "Zhifang Liu"},
+      {"@type": "Person", "name": "Peng Jiao"},
+      {"@type": "Person", "name": "Haoqian Wang"}
+    ],
+    "isPartOf": {
+      "@type": "PublicationEvent",
+      "name": "ACM Multimedia 2026"
+    },
+    "url": "https://arxiv.org/abs/2608.21450",
+    "sameAs": [
+      "https://github.com/realHarryX/KBMR",
+      "https://doi.org/10.1145/3767308.3836227"
+    ],
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="KBMR home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect x="3.5" y="7" width="20" height="20" rx="5"></rect>
+          <rect x="16.5" y="13" width="20" height="20" rx="5"></rect>
+          <path d="M12 17h16"></path>
+          <circle cx="20" cy="17" r="3.25"></circle>
+        </svg>
+        <span>KBMR</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-menu" aria-label="Primary navigation" data-menu>
+        <div class="nav-sections">
+          <a href="#overview" data-nav-link>Overview</a>
+          <a href="#method" data-nav-link>Method</a>
+          <a href="#results" data-nav-link>Results</a>
+          <a href="#citation" data-nav-link>Citation</a>
+        </div>
+        <div class="nav-actions">
+          <a href="https://arxiv.org/pdf/2608.21450">Paper</a>
+          <a class="nav-code" href="https://github.com/realHarryX/KBMR">Code <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow eyebrow-light"><span></span> ACM Multimedia 2026 · KB-VQA</p>
+          <h1 id="hero-title">
+            <span>Beyond Visual Similarity.</span>
+            Entity-Aligned Retrieval for Knowledge-Based VQA
+          </h1>
+          <p class="hero-lede">
+            KBMR teaches multimodal language models to retrieve knowledge by <strong>entity identity</strong>—not merely visual resemblance—so the right evidence survives viewpoint changes and deceptive look-alikes.
+          </p>
+          <div class="author-block">
+            <p class="authors">
+              <span>Hangrui Xu<sup>*</sup></span><span>Zhengxian Wu<sup>*</sup></span><span>Yunyao Yu<sup>*</sup></span><span>Zhuohong Chen</span><span>Rui Cong</span><span>Xiangwen Deng</span><span>Zhifang Liu</span><span>Peng Jiao</span><span>Haoqian Wang<sup>†</sup></span>
+            </p>
+            <div class="affiliations">
+              <p>Tsinghua University</p>
+              <p>University of Arizona</p>
+            </div>
+            <p class="author-notes"><sup>*</sup> Equal contribution. <sup>†</sup> Corresponding author.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://arxiv.org/pdf/2608.21450">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"></path><path d="M14 3.5v4h4M10 12h5M10 15.5h5"></path></svg>
+              Read the paper
+            </a>
+            <a class="button button-secondary" href="https://github.com/realHarryX/KBMR">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9 5 12l3 3M16 9l3 3-3 3M14 6l-4 12"></path></svg>
+              View code
+            </a>
+            <a class="button button-quiet" href="#citation">Cite KBMR <span aria-hidden="true">↓</span></a>
+          </div>
+          <ul class="project-facts">
+            <li><span class="fact-dot fact-violet" aria-hidden="true"></span><strong>arXiv</strong> 2608.21450</li>
+            <li><span class="fact-dot fact-gold" aria-hidden="true"></span><strong>DOI</strong> 10.1145/3767308.3836227</li>
+            <li><span class="fact-dot fact-mint" aria-hidden="true"></span><strong>Code</strong> Apache-2.0</li>
+          </ul>
+        </div>
+
+        <figure class="hero-figure reveal">
+          <div class="figure-window figure-window-dark">
+            <div class="window-bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <p>appearance ≠ identity</p>
+            </div>
+            <div class="hero-image-wrap">
+              <img src="assets/motivation.png" width="900" height="850" fetchpriority="high" alt="Comparison of EVA-CLIP and KBMR retrieval for a hotel image: visual similarity leads to a wrong entity, while entity-aware retrieval finds Strategic Hotels and Resorts.">
+            </div>
+          </div>
+          <figcaption>
+            <span>Figure 1</span>
+            Appearance-led retrieval can favor a convincing look-alike. KBMR retrieves evidence aligned with the queried entity. Reproduced from Xu et al. (2026), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+          </figcaption>
+        </figure>
+      </div>
+      <div class="shell hero-proof">
+        <div><strong>+14.7</strong><span>R@1 points on InfoSeek</span></div>
+        <div><strong>+11.4</strong><span>R@1 points on E-VQA</span></div>
+        <div><strong>3</strong><span>KB-VQA benchmarks</span></div>
+        <div><strong>100K</strong><span>Wikipedia-entry retrieval KB</span></div>
+      </div>
+    </section>
+
+    <section class="section overview" id="overview" aria-labelledby="overview-title">
+      <div class="shell">
+        <header class="section-heading reveal">
+          <p class="eyebrow"><span></span> Why entity alignment?</p>
+          <h2 id="overview-title">A visually plausible result can still be the wrong answer.</h2>
+          <p>First-stage retrieval determines what downstream reasoning is allowed to see. When that pool is built only around appearance, the correct Wikipedia entity can disappear before reranking or generation even begins.</p>
+        </header>
+
+        <div class="story-grid">
+          <article class="story-card reveal">
+            <div class="story-index">01</div>
+            <svg class="story-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="7" y="12" width="23" height="27" rx="5"></rect>
+              <rect x="34" y="25" width="23" height="27" rx="5"></rect>
+              <path d="m11 33 7-8 7 7M39 46l7-8 7 7"></path>
+              <path class="icon-warn" d="M24 49 40 9"></path>
+            </svg>
+            <p class="story-kicker">Visual collision</p>
+            <h3>Different entities can look alike.</h3>
+            <p>Architecture, species, products, and landmarks often share near-identical visual patterns while pointing to completely different evidence.</p>
+          </article>
+
+          <article class="story-card reveal">
+            <div class="story-index">02</div>
+            <svg class="story-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="7" y="12" width="20" height="24" rx="5"></rect>
+              <rect x="37" y="28" width="20" height="24" rx="5"></rect>
+              <path d="m11 31 6-7 6 6M41 47l6-7 6 6"></path>
+              <path class="icon-link" d="M24 22c13-7 18 5 15 14M40 42c-13 7-18-5-15-14"></path>
+            </svg>
+            <p class="story-kicker">Entity continuity</p>
+            <h3>The same identity changes appearance.</h3>
+            <p>A single entity may be photographed from another viewpoint, in another season or era, or rendered in a different visual style.</p>
+          </article>
+
+          <article class="story-card story-card-accent reveal">
+            <div class="story-index">03</div>
+            <svg class="story-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="8" y="14" width="21" height="25" rx="5"></rect>
+              <path d="m12 34 6-7 7 7"></path>
+              <path class="icon-link" d="M29 26h14"></path>
+              <circle class="icon-node" cx="47" cy="26" r="7"></circle>
+              <path d="M39 45h17M39 50h12"></path>
+            </svg>
+            <p class="story-kicker">KBMR target</p>
+            <h3>Retrieve the identity, unlock the evidence.</h3>
+            <p>KBMR reshapes the embedding space around entity-level correspondence, supplying a more faithful candidate pool to any downstream KB-VQA pipeline.</p>
+          </article>
+        </div>
+
+        <div class="thesis reveal">
+          <div class="thesis-mark" aria-hidden="true">
+            <span></span><span></span><i></i>
+          </div>
+          <div>
+            <p class="eyebrow"><span></span> The representation shift</p>
+            <blockquote>From “does it look similar?” to “does it refer to the same entity?”</blockquote>
+          </div>
+          <p>Rather than stacking another filter on a CLIP candidate pool, KBMR changes the first-stage retriever itself.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method" id="method" aria-labelledby="method-title">
+      <div class="shell">
+        <header class="section-heading method-heading reveal">
+          <p class="eyebrow"><span></span> Method · four connected moves</p>
+          <h2 id="method-title">Turn semantic judgment into a retrieval space.</h2>
+          <p>A separate MLLM first supplies graded entity-consistency signals. KBMR uses those signals to mine difficult evidence and distill a fast embedding retriever.</p>
+        </header>
+
+        <figure class="method-figure reveal">
+          <div class="figure-window">
+            <div class="window-bar window-bar-light" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <p>KBMR · training pipeline</p>
+            </div>
+            <section class="method-image-wrap" aria-label="KBMR method diagram">
+              <img src="assets/method.png" width="1740" height="800" loading="lazy" decoding="async" alt="KBMR pipeline showing a trainable MLLM retriever and continuous semantic distillation on the left, and EVA-CLIP candidate mining, semantic discrimination, filtering, and hard-negative sampling on the right.">
+            </section>
+          </div>
+          <figcaption>
+            <span>Figure 2</span>
+            EVA-CLIP candidate mining, MLLM semantic discrimination, stratified hard-negative construction, and continuous semantic distillation. Reproduced from Xu et al. (2026), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+          </figcaption>
+        </figure>
+
+        <ol class="method-steps">
+          <li class="method-step reveal">
+            <div class="step-top"><span>01</span><code>encode</code></div>
+            <h3>Embed semantic identity</h3>
+            <p>Prompt an MLLM with the image, take its final-token hidden state, and normalize it into the retrieval embedding.</p>
+            <div class="prompt-box"><span>&lt;Image&gt;</span> Summary above image in one word:</div>
+          </li>
+          <li class="method-step reveal">
+            <div class="step-top"><span>02</span><code>mine</code></div>
+            <h3>Find visual hard cases</h3>
+            <p>EVA-CLIP-8B retrieves the Top-50 visually close candidates after known positives are excluded.</p>
+            <div class="mini-flow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b>50</b></div>
+          </li>
+          <li class="method-step reveal">
+            <div class="step-top"><span>03</span><code>score</code></div>
+            <h3>Measure entity agreement</h3>
+            <p>The Semantic Discriminator converts its <em>Yes</em>/<em>No</em> logits into a continuous consistency weight.</p>
+            <div class="equation">
+              <i>w</i><sub>i</sub> = σ((<i>z</i><sub>yes</sub> − <i>z</i><sub>no</sub>) / γ)
+              <span>γ = 1.1</span>
+            </div>
+          </li>
+          <li class="method-step reveal">
+            <div class="step-top"><span>04</span><code>distill</code></div>
+            <h3>Learn the soft neighborhood</h3>
+            <p>Four difficulty strata yield eight hard negatives. Symmetric KL aligns retrieval similarity with the semantic prior.</p>
+            <div class="equation equation-small">
+              ℒ<sub>CSD</sub> = ½ [ KL(<i>p</i> ∥ <i>s</i>) + KL(<i>s</i> ∥ <i>p</i>) ]
+            </div>
+          </li>
+        </ol>
+
+        <div class="inference-note reveal">
+          <div class="inference-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="10"></circle><path d="m27 27 9 9M12 20h16M20 12v16"></path></svg>
+          </div>
+          <div>
+            <p class="eyebrow"><span></span> Fast at inference</p>
+            <h3>The teacher stays in training.</h3>
+            <p>The Semantic Discriminator constructs supervision offline. At deployment, the trained KBMR retriever embeds images and performs ordinary similarity search—without a pairwise MLLM judge in the retrieval loop.</p>
+          </div>
+          <div class="inference-flow">
+            <span>Query</span><i>→</i><span>KBMR vector</span><i>→</i><span>Search</span><i>→</i><strong>Evidence</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results" id="results" aria-labelledby="results-title">
+      <div class="shell">
+        <header class="section-heading reveal">
+          <p class="eyebrow"><span></span> Paper-reported results</p>
+          <h2 id="results-title">Better retrieval reaches the final answer.</h2>
+          <p>Entity alignment raises first-stage recall across benchmarks, then transfers into stronger downstream KB-VQA when KBMR replaces the original retriever.</p>
+        </header>
+
+        <div class="metric-grid">
+          <article class="metric-card reveal">
+            <div class="metric-top"><span>E-VQA</span><small>R@1</small></div>
+            <p class="metric-value">24.7<span>%</span></p>
+            <p class="metric-gain"><span aria-hidden="true">↑</span> +11.4 points</p>
+            <p>vs. EVA-CLIP-8B at 13.3%</p>
+          </article>
+          <article class="metric-card metric-featured reveal">
+            <div class="metric-top"><span>InfoSeek</span><small>R@1</small></div>
+            <p class="metric-value">60.3<span>%</span></p>
+            <p class="metric-gain"><span aria-hidden="true">↑</span> +14.7 points</p>
+            <p>vs. EVA-CLIP-8B at 45.6%</p>
+          </article>
+          <article class="metric-card reveal">
+            <div class="metric-top"><span>OK-VQA</span><small>Pseudo R@5</small></div>
+            <p class="metric-value">80.4<span>%</span></p>
+            <p class="metric-label">KBMR · LLaVA-OV-7B</p>
+            <p>Entity retrieval performance</p>
+          </article>
+          <article class="metric-card reveal">
+            <div class="metric-top"><span>OK-VQA</span><small>VQA score*</small></div>
+            <p class="metric-value">79.3<span>%</span></p>
+            <p class="metric-gain"><span aria-hidden="true">↑</span> +12.7 points</p>
+            <p>OMGM with KBMR retrieval</p>
+          </article>
+        </div>
+
+        <section class="rank-story reveal" aria-labelledby="rank-story-title">
+          <div class="rank-copy">
+            <p class="eyebrow"><span></span> One query, one decisive shift</p>
+            <h3 id="rank-story-title"><i>Corvus albicollis</i> moves from the edge of the pool to the first result.</h3>
+            <p>In the paper's qualitative example, EVA-CLIP fills the top ranks with visually similar bird species. KBMR restores the correct entity to rank one.</p>
+          </div>
+          <div class="rank-compare">
+            <div>
+              <span>EVA-CLIP</span>
+              <strong>#5</strong>
+              <small>correct entity rank</small>
+            </div>
+            <svg viewBox="0 0 100 34" aria-hidden="true"><path d="M4 25C32 25 36 9 70 9h22"></path><path d="m86 3 7 6-7 6"></path></svg>
+            <div class="rank-win">
+              <span>KBMR</span>
+              <strong>#1</strong>
+              <small>correct entity rank</small>
+            </div>
+          </div>
+          <figure class="rank-figure">
+            <a href="https://arxiv.org/pdf/2608.21450" aria-label="Open the KBMR paper containing the full qualitative analysis">
+              <img src="assets/figure-corvus.png" width="900" height="730" loading="lazy" decoding="async" alt="Qualitative retrieval comparison for a Corvus albicollis query. EVA-CLIP ranks the correct entity fifth, while KBMR retrieves it at rank one.">
+            </a>
+            <figcaption>
+              <span>Figure 4</span>
+              Qualitative comparison of the top-five documents retrieved by EVA-CLIP and KBMR. The green outline marks the ground-truth entity. Reproduced from Xu et al. (2026), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+            </figcaption>
+          </figure>
+        </section>
+
+        <div class="result-block reveal">
+          <div class="result-block-heading">
+            <div>
+              <p class="eyebrow"><span></span> Retrieval</p>
+              <h3>Entity retrieval on E-VQA and InfoSeek</h3>
+            </div>
+            <p>Recall (%), higher is better.</p>
+          </div>
+          <section class="table-region" tabindex="0" aria-label="Entity retrieval results; scroll horizontally to see every column">
+            <table>
+              <caption>Paper-reported retrieval comparison for the strongest visual baseline and both KBMR backbones.</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Retriever</th>
+                  <th scope="col">E-VQA<br><span>R@1</span></th>
+                  <th scope="col">E-VQA<br><span>R@5</span></th>
+                  <th scope="col">InfoSeek<br><span>R@1</span></th>
+                  <th scope="col">InfoSeek<br><span>R@5</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">EVA-CLIP-8B <small>visual baseline</small></th>
+                  <td>13.3</td><td>31.3</td><td>45.6</td><td>67.1</td>
+                </tr>
+                <tr class="kbmr-row">
+                  <th scope="row"><span class="table-model-mark" aria-hidden="true"></span>KBMR <small>Qwen2-VL-7B</small></th>
+                  <td>22.6</td><td>43.1</td><td>55.8</td><td>71.1</td>
+                </tr>
+                <tr class="kbmr-row best-row">
+                  <th scope="row"><span class="table-model-mark" aria-hidden="true"></span>KBMR <small>LLaVA-OV-7B</small></th>
+                  <td><strong>24.7</strong></td><td><strong>48.7</strong></td><td><strong>60.3</strong></td><td><strong>74.7</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <div class="scope-notes">
+            <p><strong>Scope.</strong> E-VQA and InfoSeek use the stated 100K-entry Wikipedia knowledge base; these values should not be read as full-Wikipedia retrieval results.</p>
+            <p><strong>Availability.</strong> The public repository documents the Qwen2-VL-7B implementation. LLaVA-OV-7B values are paper-reported and do not imply a released LLaVA checkpoint.</p>
+          </div>
+        </div>
+
+        <div class="downstream-grid">
+          <article class="result-block reveal">
+            <div class="result-block-heading">
+              <div>
+                <p class="eyebrow"><span></span> Downstream · OMGM</p>
+                <h3>E-VQA and InfoSeek</h3>
+              </div>
+            </div>
+            <section class="table-region table-region-compact" tabindex="0" aria-label="OMGM downstream results">
+              <table>
+                <caption>Downstream answer accuracy after replacing OMGM's retriever with KBMR.</caption>
+                <thead><tr><th scope="col">Pipeline</th><th scope="col">E-VQA All</th><th scope="col">InfoSeek All</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">OMGM</th><td>50.2</td><td>43.5</td></tr>
+                  <tr class="kbmr-row best-row"><th scope="row">OMGM + KBMR</th><td><strong>54.7</strong></td><td><strong>50.8</strong></td></tr>
+                  <tr class="gain-row"><th scope="row">Absolute change</th><td>+4.5</td><td>+7.3</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </article>
+
+          <article class="result-block reveal">
+            <div class="result-block-heading">
+              <div>
+                <p class="eyebrow"><span></span> Downstream · OK-VQA</p>
+                <h3>Plug-in retrieval impact</h3>
+              </div>
+            </div>
+            <section class="table-region table-region-compact" tabindex="0" aria-label="OK-VQA downstream results">
+              <table>
+                <caption>OK-VQA comparison after replacing OMGM's retriever.</caption>
+                <thead><tr><th scope="col">Setting</th><th scope="col">Pseudo R@5</th><th scope="col">VQA score</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">OMGM</th><td>73.4</td><td>66.6</td></tr>
+                  <tr class="kbmr-row best-row"><th scope="row">OMGM + KBMR <small>LLaVA-OV-7B</small></th><td><strong>80.4</strong></td><td><strong>79.3*</strong></td></tr>
+                  <tr class="gain-row"><th scope="row">Absolute change</th><td>+7.0</td><td>+12.7</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </article>
+        </div>
+
+        <p class="result-footnote reveal">* KBMR replaces OMGM's retriever while the downstream pipeline is retained. This is not a stand-alone retriever VQA score. All values on this page are reported by the paper.</p>
+      </div>
+    </section>
+
+    <section class="section citation" id="citation" aria-labelledby="citation-title">
+      <div class="shell citation-grid">
+        <div class="citation-copy reveal">
+          <p class="eyebrow eyebrow-light"><span></span> Citation</p>
+          <h2 id="citation-title">Build on entity-aligned retrieval.</h2>
+          <p>If KBMR helps your research, please cite the paper and explore the complete open-source implementation.</p>
+          <dl class="paper-meta">
+            <div><dt>Venue</dt><dd>ACM Multimedia 2026</dd></div>
+            <div><dt>arXiv</dt><dd><a href="https://arxiv.org/abs/2608.21450">2608.21450 <span aria-hidden="true">↗</span></a></dd></div>
+            <div><dt>DOI</dt><dd><a href="https://doi.org/10.1145/3767308.3836227">10.1145/3767308.3836227 <span aria-hidden="true">↗</span></a></dd></div>
+            <div><dt>Code</dt><dd><a href="https://github.com/realHarryX/KBMR">realHarryX/KBMR <span aria-hidden="true">↗</span></a></dd></div>
+          </dl>
+        </div>
+
+        <div class="bibtex-card reveal">
+          <div class="bibtex-header">
+            <div><span></span><span></span><span></span><p>BibTeX</p></div>
+            <button type="button" class="copy-button" data-copy-button aria-describedby="copy-status">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+              <span data-copy-label>Copy</span>
+            </button>
+          </div>
+          <pre id="bibtex" tabindex="0"><code>@misc{xu2026kbmr,
+  title = {Beyond Visual Similarity: Entity-Aligned Retrieval
+           for Knowledge-Based Visual Question Answering},
+  author = {Hangrui Xu and Zhengxian Wu and Yunyao Yu and
+            Zhuohong Chen and Rui Cong and Xiangwen Deng and
+            Zhifang Liu and Peng Jiao and Haoqian Wang},
+  year = {2026},
+  eprint = {2608.21450},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CV},
+  doi = {10.1145/3767308.3836227},
+  url = {https://arxiv.org/abs/2608.21450}
+}</code></pre>
+          <p class="copy-status" id="copy-status" role="status" aria-live="polite" data-copy-status>Ready to copy.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="brand footer-brand" href="#top" aria-label="Back to KBMR home">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="3.5" y="7" width="20" height="20" rx="5"></rect><rect x="16.5" y="13" width="20" height="20" rx="5"></rect><path d="M12 17h16"></path><circle cx="20" cy="17" r="3.25"></circle></svg>
+        <span>KBMR</span>
+      </a>
+      <p>Entity-aligned retrieval for knowledge-based visual question answering.</p>
+      <div class="footer-links">
+        <a href="https://github.com/realHarryX/KBMR/blob/main/LICENSE">Apache-2.0</a>
+        <a href="https://creativecommons.org/licenses/by/4.0/">Figures · CC BY 4.0</a>
+        <a href="https://arxiv.org/abs/2608.21450">Paper</a>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="back-to-top-nav" aria-label="Page actions"><a class="back-to-top" href="#top" aria-label="Back to top" data-back-to-top><span aria-hidden="true">↑</span></a></nav>
+  <script src="assets/site.js" defer></script>
+</body>
+</html>
